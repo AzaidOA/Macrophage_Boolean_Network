@@ -1,0 +1,57 @@
+﻿Source,interaction,Target,Reference,Notes
+IFNGR,activation,STAT1,Mclaren2008,
+SOCS1,inhibition,STAT1,Fenner2006,
+GM-CSF,activation,STAT5,Lehtonen2002,GM-CSF first activates the CSF2Rα receptor and then it activates STAT5
+STAT3_IL10,inhibition,STAT5,Caldenhoven1999,inhibition occurs when IL-10 is present
+IL1B_e,activation,IL1R,Weber2010,
+NFkB,activation,IL1R,,NFkB increases the production of IL1b and it activates IL1R
+STAT1,activation,IL12,Weber2010,
+STAT5,activation,IL12,Palma2018,motifs found for STAT5a and STAT5b
+NFkB,activation,IL12,Bally2015,
+STAT3_IL10,inhibition,IL12,agregar biblio,
+IC_e,activation,FCGR,Foey2014,activation occurs only when there is a joint presence of LPS or IL1b
+LPS_e,activation,FCGR,Lucas2005,activation occurs only when there is a joint presence of IC
+IL1B_e,activation,FCGR,Zhang2009,activation occurs only when there is a joint presence of IC
+IL1R,activation,NFkB,Zhang2009,
+TLR4,activation,NFkB,10.4049/jimmunol.1402550,Mediated through the MyD88 pathway
+FCGR,activation,NFkB,10.4049/jimmunol.182.1.554,
+PPARG,inhibition,NFkB,10.1038/34178,
+STAT3_IL10,inhibition,NFkB,10.1093/bfgp/elt028,Act through Etv3
+KLF4,inhibition,NFkB,10.1172/JCI59643,
+SOCS1,inhibition,NFkB,https://www.nature.com/articles/ni1299,
+HIF1a,activation,VEGF_out,agregar biblio,
+LPS_e,activation,TLR4,10.1038/nature07830,
+FCGR,inhibition,TLR4,10.4049/jimmunol.182.1.554,
+TLR4,activation,HIF1a,agregar biblio,activation occurs only when there is a joint presence of NECA_e
+NECA_e,activation,HIF1a,agregar biblio,activation occurs only when there is a joint presence of TLR4
+NFkB,activation,IL6_out,10.3109/08820139.2014.917095,
+STAT3_IL6,activation,IL6_out,10.1593/neo.13706,
+STAT6,activation,KLF4,10.1172/JCI45444,
+IL4_e,activation,STAT6,10.1016/j.immuni.2010.05.007*,IL4_e first activates the IL4Ra receptor and then it activates STAT6
+PPARG,activation,IL10_out,10.1038/nature07830,
+STAT6,activation,IL10_out,10.1038/nature07830,
+STAT3_IL10,activation,IL10_out,10.1038/nature07830,
+ERK,activation,IL10_out,10.1038/nature07830,
+STAT6,activation,SOCS1,,
+STAT6,activation,PPARG,,
+IL6R,activation,STAT3_IL6,,
+IL10R,activation,STAT3_IL10,,
+FCGR,inhibition,STAT3_IL10,,
+STAT3_IL6,activation,SOCS3,10.1038/ni931,
+STAT3_IL10,activation,SOCS3,10.1038/ni931,
+EGFR_e,inhibition,SOCS3,10.1073/pnas.1315862110,
+IL6_out,inhibition,SOCS3,10.1073/pnas.1315862110,
+FCGR,activation,ERK,,
+SOCS3,inhibition,IL6R,10.1038/ni931,
+IL6_out,activation,IL6R,,
+IL6_e,activation,IL6R,,
+IL10_e,activation,IL10R,,
+PPARG,activation,IL10R,,
+STAT6,activation,IL10R,,
+ERK,activation,IL10R,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
