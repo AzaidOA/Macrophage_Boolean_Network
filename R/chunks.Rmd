@@ -1,0 +1,27 @@
+---
+title: "Probando Red"
+author: "Manuel Azaid Ordaz Arias"
+date: "27/4/2021"
+output: html_document
+---
+Obtencion de red y atractores
+```{r}
+net <- loadNetwork("../CSV/reduced_boolean_network_proof.csv")
+net
+attr <- getAttractors(net, type="synchronous", method = "sat.restricted", maxAttractorLength = 1,
+                      returnTable  = TRUE)
+labels <- read.csv("../CSV/macrophage_label_rules_proof.csv")
+cell_types <- labelAttractors(attr, labels, sep="#")
+unique(cell_types)
+df <- attractorToDataframe(attr, Boolean = T)
+```
+
+Probando STAT3IL10 - IL12
+
+```{r}
+unique(df[,c("LPS_e","IC_e", "IL1B_e", "IL12_out", "IL10_out")])
+```
+
+
+
+

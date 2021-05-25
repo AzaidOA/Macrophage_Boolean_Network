@@ -10,7 +10,7 @@ library('BoolNet')
 library('BoolNetPerturb')
 library("pheatmap")
 library(ggplot2)
-net <- loadNetwork("../CSV/reduced_boolean_network_proof.csv")
+net <- loadNetwork("../CSV/reduced_boolean_network.csv")
 attr <- getAttractors(net, type="synchronous", method = "sat.restricted", maxAttractorLength = 1,
                       returnTable  = TRUE)
 labels <- read.csv("../CSV/macrophage_label_rules_proof.csv")
@@ -19,7 +19,6 @@ df <- attractorToDataframe(attr, Boolean = T)
 df <- cbind(cell_types,df)
 not <- which(cell_types == "NoLabel")
 df_cell <- df[-not,]
-df_cell
 ```
 
 Tabla de atractores con tipo celular de la red simplificada
