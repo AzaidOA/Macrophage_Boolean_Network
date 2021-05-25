@@ -1,0 +1,46 @@
+---
+title: "Report"
+author: "Manuel Azaid Ordaz Arias"
+date: "4/5/2021"
+output: html_document
+---
+
+```{r}
+library('BoolNet')
+library('BoolNetPerturb')
+library("pheatmap")
+library(ggplot2)
+net <- loadNetwork("../CSV/reduced_boolean_network.csv")
+attr <- getAttractors(net, type="synchronous", method = "sat.restricted", maxAttractorLength = 1,
+                      returnTable  = TRUE)
+labels <- read.csv("../CSV/macrophage_label_rules_proof.csv")
+cell_types <- labelAttractors(attr, labels, sep="#")
+df <- attractorToDataframe(attr, Boolean = T)
+df <- cbind(cell_types,df)
+not <- which(cell_types == "NoLabel")
+df_cell <- df[-not,]
+```
+
+Tabla de atractores con tipo celular de la red simplificada
+
+```{r}
+table(df_cell$cell_types)
+```
+
+Numero de tipos celulares. Los proporcion de los tipos celulares estan proporcionales a los que obtuvo palma en sus tio. Siendo M2a, M2c y m1 los mas significativos en ese orden, y M2b el menos represntado.
+```{r}
+# Tabla de atractores
+genes <- c("IL12_out", "IL10_out", "IL6_out", "STAT1", "STAT5", "NFKB", 
+                "VEGF_out", "STAT6", "ERK", "HIF1a", "STAT3_IL10")
+
+hm_data <- df_cell[,c("cell_types",genes)]
+hm_data <- unique(hm_data)
+hm_data <- hm_data[order(hm_data$cell_types),]
+heatmap(t(unique(hm_data[,2:12])), Colv = NA,
+        Rowv = NA, col = c("red", "green"), scale="column", 
+        labCol = hm_data$cell_types)
+```
+
+Lo tipos celulares M1 siempre obtenen un activacion de IL12 y una inactivacion de IL10 lo cual es normal del fenotipo, asi como algunas activaciones de IL6. El M2a se caracteriza como un solo atractor en el cual se activa la via de IL4/STAT6/IL10. El m2b tiene una ctivacion de IL10 e IL6 lo cual si se prsenta, pero ERK nunca se activa y en cambio STAT1 si, lo cual no es del fenotipo. M2c Un atractor corresponde totalmente al fenotipo cumpliendo con soloel eje IL10/STAT3/IL10_out pero el otro tiene igual STAT1. M2d en un atractor prenta todos los marcadores del fenotipo HIF1a, IL10 y VEGF pero igual presenta STAT1.
+
+

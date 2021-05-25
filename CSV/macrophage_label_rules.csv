@@ -1,6 +1,6 @@
 labels,rules
-M1__,(IL12_out) & ( IL6_out | STAT1 | STAT5 | NFKB | IRF3) & ! (STAT6 | IRF4  | ERK | STAT3_IL10  | IL10_out)
+M1__,(IL12_out) & ( IL6_out | STAT1 | STAT5 | NFKB ) & ! (STAT6 | IRF4  | ERK | STAT3_IL10  | IL10_out)
 M2a__,(PPARG & STAT6 & IRF4 & IL10_out)  & ! ( STAT1 | STAT5 | NFKB | ERK | STAT3_IL6 | IL12_out |VEGF_out |IL6_out)
-M2b__,(IL10_out ) & (IL6_out |NFKB | ERK ) & ! ( STAT1 | STAT5 | IRF3 | STAT6 | IRF4 | STAT3_IL10 | VEGF_out )
-M2c__,(IL10_out & STAT3_IL10 ) & ! ( STAT1 | STAT5 | IRF3 |STAT6 | IRF4 | ERK | NFKB | IL12_out |IL6_out | VEGF_out)
-M2d__,(IL10_out & VEGF_out) & (HIF1a) & ! ( STAT1 | STAT5 | STAT6 | IRF4 | ERK  | IL6_out)
+M2b__,(IL10_out ) & (IL6_out |NFKB | ERK ) & ! ( STAT1 | STAT5  | STAT6 | IRF4 | STAT3_IL10 | VEGF_out )
+M2c__,(IL10_out & STAT3_IL10 ) & ! ( STAT1 | STAT5 |STAT6 | IRF4 | ERK | NFKB | IL12_out |IL6_out | VEGF_out)
+M2d__,(IL10_out & VEGF_out) & (HIF1a) & ! ( STAT1 | STAT5 | STAT6 | IRF4 | ERK | IL6_out)
