@@ -6,10 +6,14 @@ output: html_document
 ---
 Obtencion de red y atractores
 ```{r}
+library('BoolNet')
+library('BoolNetPerturb')
+library("pheatmap")
+library('ggplot2')
 net <- loadNetwork("../CSV/reduced_boolean_network_proof.csv")
 net
-attr <- getAttractors(net, type="synchronous", method = "sat.restricted", maxAttractorLength = 1,
-                      returnTable  = TRUE)
+attr <- getAttractors(net, type="asynchronous", maxAttractorLength =
+                            1, returnTable  = TRUE)
 labels <- read.csv("../CSV/macrophage_label_rules_proof.csv")
 cell_types <- labelAttractors(attr, labels, sep="#")
 unique(cell_types)
