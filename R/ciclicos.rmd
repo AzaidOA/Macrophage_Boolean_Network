@@ -15,7 +15,7 @@ attr <- getAttractors(net, type="synchronous", method = "sat.restricted",
                       maxAttractorLength = 2,returnTable  = TRUE)
 print(getAttractorSequence(attr, 1362))
 print(getBasinOfAttraction(attr, 1362))
-x`attr <- getAttractors(net, type="asynchronous", 
+attr <- getAttractors(net, type="asynchronous", 
                       maxAttractorLength = 2,returnTable  = TRUE)
 labels <- read.csv("../CSV/macrophage_label_rules_proof.csv")
 cell_types <- labelAttractors(attr, labels, sep="#")
