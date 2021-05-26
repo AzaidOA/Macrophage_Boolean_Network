@@ -12,7 +12,7 @@ library("pheatmap")
 library(ggplot2)
 net <- loadNetwork("../CSV/reduced_boolean_network_proof.csv")
 attr <- getAttractors(net, type="synchronous", method = "sat.restricted", 
-                      maxAttractorLength = 2,returnTable  = TRUE)
+                      maxAttractorLength = 1, returnTable  = TRUE)
 print(getAttractorSequence(attr, 1362))
 print(getBasinOfAttraction(attr, 1362))
 attr <- getAttractors(net, type="asynchronous", 

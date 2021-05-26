@@ -4,4 +4,9 @@ for (state in M1M1) {
 }
 
 print(getAttractorSequence(attr, 1362))
-print(getBasinOfAttraction(attr, 1362))
+net <- loadNetwork("../CSV/reduced_boolean_network_proof.csv")
+
+basin <- getBasinOfAttraction(attr, 4)
+getTransitionTable(attr)
+df <- attractorToDataframe(attr, Boolean = T)
+df
