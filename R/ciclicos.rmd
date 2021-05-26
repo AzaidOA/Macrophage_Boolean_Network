@@ -12,10 +12,10 @@ library("pheatmap")
 library(ggplot2)
 net <- loadNetwork("../CSV/reduced_boolean_network_proof.csv")
 attr <- getAttractors(net, type="synchronous", method = "sat.restricted", 
-                      maxAttractorLength = 1, returnTable  = TRUE)
+                      maxAttractorLength = 2,returnTable  = TRUE)
 print(getAttractorSequence(attr, 1362))
 print(getBasinOfAttraction(attr, 1362))
-attr <- getAttractors(net, type="asynchronous", 
+x`attr <- getAttractors(net, type="asynchronous", 
                       maxAttractorLength = 2,returnTable  = TRUE)
 labels <- read.csv("../CSV/macrophage_label_rules_proof.csv")
 cell_types <- labelAttractors(attr, labels, sep="#")
