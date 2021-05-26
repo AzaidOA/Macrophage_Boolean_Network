@@ -11,9 +11,8 @@ library('BoolNetPerturb')
 library("pheatmap")
 library('ggplot2')
 net <- loadNetwork("../CSV/reduced_boolean_network_proof.csv")
-net
-attr <- getAttractors(net, type="asynchronous", maxAttractorLength =
-                            1, returnTable  = TRUE)
+attr <- getAttractors(net, type="synchronous", maxAttractorLength =
+                            2, returnTable  = TRUE)
 labels <- read.csv("../CSV/macrophage_label_rules_proof.csv")
 cell_types <- labelAttractors(attr, labels, sep="#")
 unique(cell_types)
@@ -27,5 +26,52 @@ unique(df[,c("LPS_e","IC_e", "IL1B_e", "IL12_out", "IL10_out")])
 ```
 
 
+M1__#M1__
+```{r}
+M1M1 <-  which(cell_types == "M1__#M1__")
+SOCS3_M1M1 <- c()
+IL12_M1M1 <- c()
+for (state in M1M1) {
+      print(df[which(df$attractor == state),])
+      SOCS3_M1M1 <- c(SOCS3_M1M1, df[which(df$attractor == state),"SOCS3"])
+      IL12_M1M1 <- c(IL12_M1M1, df[which(df$attractor == state),"IL12_out"])
+}
 
+```
+Aqui lo que esta pasando es socs3 esta haciendo un ciclico en la via IL6/STAT3/IL6
 
+M1__#NoLabel
+
+```{r}
+M1NoLabel <-  which(cell_types == "M1__#NoLabel")
+#SOCS3_M1M1 <- c()
+#IL12_M1M1 <- c()
+for (state in M1NoLabel) {
+      print(df[which(df$attractor == state),])
+      #SOCS3_M1M1 <- c(SOCS3_M1M1, df[which(df$attractor == state),"SOCS3"])
+      #IL12_M1M1 <- c(IL12_M1M1, df[which(df$attractor == state),"IL12_out"])
+}
+
+```
+1388
+
+NoLabel#M1__
+```{r}
+NoLabelM1 <-  which(cell_types == "NoLabel#M1__")
+for (state in NoLabelM1) {
+      print(df[which(df$attractor == state),])
+}
+
+```
+
+NoLabel
+```{r}
+NoLabel <-  which(cell_types == "NoLabel")
+for (state in NoLabel) {
+      print(df[which(df$attractor == state),c("IL10_out","IL12_out", "FCGR",
+                                              "IL6_out","ERK","VEGF_out","HIF1a",
+                                              "STAT6")])
+}
+```
+
+NoLabel#NoLabel
