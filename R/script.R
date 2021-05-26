@@ -7,6 +7,7 @@ for (state in M1M1) {
       IL12_M1M1 <- c(IL12_M1M1, df[which(df$attractor == state),"IL12_out"])
 }
 
+<<<<<<< HEAD
 M1NoLabel <-  which(cell_types == "M1__#NoLabel")
 #SOCS3_M1M1 <- c()
 #IL12_M1M1 <- c()
@@ -46,3 +47,12 @@ for (state in NoLabelNoLabel) {
       #SOCS3_M1M1 <- c(SOCS3_M1M1, df[which(df$attractor == state),"SOCS3"])
       #IL12_M1M1 <- c(IL12_M1M1, df[which(df$attractor == state),"IL12_out"])
 }
+=======
+print(getAttractorSequence(attr, 1362))
+net <- loadNetwork("../CSV/reduced_boolean_network_proof.csv")
+
+basin <- getBasinOfAttraction(attr, 4)
+getTransitionTable(attr)
+df <- attractorToDataframe(attr, Boolean = T)
+df
+>>>>>>> 439693a6dd67f0f0e0a87c47e6509445113c7dfa

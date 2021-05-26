@@ -1,127 +1,127 @@
-  ---
-  title: "ciclicos"
-  author: "Manuel Azaid Ordaz Arias"
-  date: "11/5/2021"
-  output: html_document
-  ---
-  
-  ```{r}
-  library('BoolNet')
-  library('BoolNetPerturb')
-  library("pheatmap")
-  library(ggplot2)
-  net <- loadNetwork("../CSV/reduced_boolean_network_proof.csv")
-  attr <- getAttractors(net, type="synchronous", method = "sat.restricted", 
-                        maxAttractorLength = 2,returnTable  = TRUE)
-  print(getAttractorSequence(attr, 1362))
-  print(getBasinOfAttraction(attr, 1362))
-  x`attr <- getAttractors(net, type="asynchronous", 
-                        maxAttractorLength = 2,returnTable  = TRUE)
-  labels <- read.csv("../CSV/macrophage_label_rules_proof.csv")
-  cell_types <- labelAttractors(attr, labels, sep="#")
-  df <- attractorToDataframe(attr, Boolean = T)
-  df <- cbind(df,rep("a", nrow(df)))
-  colnames(df)[34] <- "cell_types"
-  ```
-  
-  Acomodando df para heatmap
-  ```{r}
-  uni <- unique(cell_types)
-  for (i in uni) {
-        set <- which(cell_types == i)
-        for (state in set) {
-              df[which(df$attractor == state),34] <- i
-        }
-        
-  }
-  ```
-  Costruyendo heatmap
-  ```{r}
-  genes <- c("IL12_out", "IL10_out", "IL6_out", "STAT1", "STAT5", "NFKB", 
-                  "VEGF_out", "STAT6", "ERK", "HIF1a", "STAT3_IL10")
-  
-  hm_data <- df[,c("cell_types",genes)]
-  hm_data <- unique(hm_data)
-  hm_data <- hm_data[order(hm_data$cell_types),]
-  heatmap(t(unique(hm_data[,2:ncol(hm_data)])), Colv = NA,
-          Rowv = NA, col = c("red", "green"), scale="column", 
-          labCol = hm_data$cell_types)
-  ```
-  
-  
-  M2bM2c
-  ```{r}
-  M2cM2b <- which(cell_types == "M2c__#M2b__")
-  for (state in M2cM2b) {
-        print(df[which(df$attractor == state),])
-  }
-  ```
-  
-  Aqui seactivando y desactivando el eje de IL6/STAT3/SOCS3 que inhibe la producio de IL6 y al ya no estar este marcador se activa M2c
-  
-  M2d__#NoLabel
-  
-  ```{r}
-  M2dNoLabel <- which(cell_types== "M2d__#NoLabel")
-  for (state in M2cM2b) {
-        print(df[which(df$attractor == state),])
-  }
-  ```
-  Aqui se vuelve a activar el eje de IL6/STAT3/SOCS3 por IL6_e, provocando que cuando este sea un marcador el fenotipo de se pueda etiquetar
-  
-  NoLabel#M1__
-  
-  ```{r}
-  NoLabelM1 <- which(cell_types == "NoLabel#M1__")
-  for (state in NoLabelM1) {
-        print(df[which(df$attractor == state),])
-  }
-  ```
-  
-  Aqui se activa SOCS3 y hace que se active y se apague IL6out, pero no se como se activa IL1R , NFKB e IL12 
-  
-  M1NoLabel
-  
-  ```{r}
-  M1NoLabel <- which(cell_types == "M1__#NoLabel")
-  for (state in M1NoLabel) {
-        print(df[which(df$attractor == state),])
-  }
-  
-  ```
-  Igual se activa SOCS3 y hace que se active y apague IL6out, pero no se como se activa IL12, IL1R y NFKB
-  
-  M2a__#NoLabel
-  
-  ```{r}
-  M2aNoLabel <-  which(cell_types == "M2a__#NoLabel")
-  for (state in M2aNoLabel) {
-        print(df[which(df$attractor == state),])
-  }
-  
-  ```
-  Se ineactivaba IL6out aun habiendo EFGR e IL6out, nuevo varante en las reglas de eiquetado
-  
-  Tabla de atractores con tipo celular de la red simplificada
-  
-  ```{r}
-  table(df_cell$cell_types)
-  ```
-  
-  Numero de tipos celulares. Los proporcion de los tipos celulares estan proporcionales a los que obtuvo palma en sus tio. Siendo M2a, M2c y m1 los mas significativos en ese orden, y M2b el menos represntado.
-  ```{r}
-  # Tabla de atractores
-  genes <- c("IL12_out", "IL10_out", "IL6_out", "STAT1", "STAT5", "NFKB", 
-                  "VEGF_out", "STAT6", "ERK", "HIF1a", "STAT3_IL10")
-  
-  hm_data <- df_cell[,c("cell_types",genes)]
-  hm_data <- unique(hm_data)
-  hm_data <- hm_data[order(hm_data$cell_types),]
-  heatmap(t(unique(hm_data[,2:12])), Colv = NA,
-          Rowv = NA, col = c("red", "green"), scale="column", 
-          labCol = hm_data$cell_types)
-  ```
-  
-  Lo tipos celulares M1 siempre obtenen un activacion de IL12 y una inactivacion de IL10 lo cual es normal del fenotipo, asi como algunas activaciones de IL6. El M2a se caracteriza como un solo atractor en el cual se activa la via de IL4/STAT6/IL10. El m2b tiene una ctivacion de IL10 e IL6 lo cual si se prsenta, pero ERK nunca se activa y en cambio STAT1 si, lo cual no es del fenotipo. M2c Un atractor corresponde totalmente al fenotipo cumpliendo con soloel eje IL10/STAT3/IL10_out pero el otro tiene igual STAT1. M2d en un atractor prenta todos los marcadores del fenotipo HIF1a, IL10 y VEGF pero igual presenta STAT1.
-  
-  
+---
+title: "ciclicos"
+author: "Manuel Azaid Ordaz Arias"
+date: "11/5/2021"
+output: html_document
+---
+
+```{r}
+library('BoolNet')
+library('BoolNetPerturb')
+library("pheatmap")
+library(ggplot2)
+net <- loadNetwork("../CSV/reduced_boolean_network_proof.csv")
+attr <- getAttractors(net, type="synchronous", method = "sat.restricted", 
+                      maxAttractorLength = 2,returnTable  = TRUE)
+print(getAttractorSequence(attr, 1362))
+print(getBasinOfAttraction(attr, 1362))
+attr <- getAttractors(net, type="asynchronous", 
+                      maxAttractorLength = 2,returnTable  = TRUE)
+labels <- read.csv("../CSV/macrophage_label_rules_proof.csv")
+cell_types <- labelAttractors(attr, labels, sep="#")
+df <- attractorToDataframe(attr, Boolean = T)
+df <- cbind(df,rep("a", nrow(df)))
+colnames(df)[34] <- "cell_types"
+```
+
+Acomodando df para heatmap
+```{r}
+uni <- unique(cell_types)
+for (i in uni) {
+      set <- which(cell_types == i)
+      for (state in set) {
+            df[which(df$attractor == state),34] <- i
+      }
+      
+}
+```
+Costruyendo heatmap
+```{r}
+genes <- c("IL12_out", "IL10_out", "IL6_out", "STAT1", "STAT5", "NFKB", 
+                "VEGF_out", "STAT6", "ERK", "HIF1a", "STAT3_IL10")
+
+hm_data <- df[,c("cell_types",genes)]
+hm_data <- unique(hm_data)
+hm_data <- hm_data[order(hm_data$cell_types),]
+heatmap(t(unique(hm_data[,2:ncol(hm_data)])), Colv = NA,
+        Rowv = NA, col = c("red", "green"), scale="column", 
+        labCol = hm_data$cell_types)
+```
+
+
+M2bM2c
+```{r}
+M2cM2b <- which(cell_types == "M2c__#M2b__")
+for (state in M2cM2b) {
+      print(df[which(df$attractor == state),])
+}
+```
+
+Aqui seactivando y desactivando el eje de IL6/STAT3/SOCS3 que inhibe la producio de IL6 y al ya no estar este marcador se activa M2c
+
+M2d__#NoLabel
+
+```{r}
+M2dNoLabel <- which(cell_types== "M2d__#NoLabel")
+for (state in M2cM2b) {
+      print(df[which(df$attractor == state),])
+}
+```
+Aqui se vuelve a activar el eje de IL6/STAT3/SOCS3 por IL6_e, provocando que cuando este sea un marcador el fenotipo de se pueda etiquetar
+
+NoLabel#M1__
+
+```{r}
+NoLabelM1 <- which(cell_types == "NoLabel#M1__")
+for (state in NoLabelM1) {
+      print(df[which(df$attractor == state),])
+}
+```
+
+Aqui se activa SOCS3 y hace que se active y se apague IL6out, pero no se como se activa IL1R , NFKB e IL12 
+
+M1NoLabel
+
+```{r}
+M1NoLabel <- which(cell_types == "M1__#NoLabel")
+for (state in M1NoLabel) {
+      print(df[which(df$attractor == state),])
+}
+
+```
+Igual se activa SOCS3 y hace que se active y apague IL6out, pero no se como se activa IL12, IL1R y NFKB
+
+M2a__#NoLabel
+
+```{r}
+M2aNoLabel <-  which(cell_types == "M2a__#NoLabel")
+for (state in M2aNoLabel) {
+      print(df[which(df$attractor == state),])
+}
+
+```
+Se ineactivaba IL6out aun habiendo EFGR e IL6out, nuevo varante en las reglas de eiquetado
+
+Tabla de atractores con tipo celular de la red simplificada
+
+```{r}
+table(df_cell$cell_types)
+```
+
+Numero de tipos celulares. Los proporcion de los tipos celulares estan proporcionales a los que obtuvo palma en sus tio. Siendo M2a, M2c y m1 los mas significativos en ese orden, y M2b el menos represntado.
+```{r}
+# Tabla de atractores
+genes <- c("IL12_out", "IL10_out", "IL6_out", "STAT1", "STAT5", "NFKB", 
+                "VEGF_out", "STAT6", "ERK", "HIF1a", "STAT3_IL10")
+
+hm_data <- df_cell[,c("cell_types",genes)]
+hm_data <- unique(hm_data)
+hm_data <- hm_data[order(hm_data$cell_types),]
+heatmap(t(unique(hm_data[,2:12])), Colv = NA,
+        Rowv = NA, col = c("red", "green"), scale="column", 
+        labCol = hm_data$cell_types)
+```
+
+Lo tipos celulares M1 siempre obtenen un activacion de IL12 y una inactivacion de IL10 lo cual es normal del fenotipo, asi como algunas activaciones de IL6. El M2a se caracteriza como un solo atractor en el cual se activa la via de IL4/STAT6/IL10. El m2b tiene una ctivacion de IL10 e IL6 lo cual si se prsenta, pero ERK nunca se activa y en cambio STAT1 si, lo cual no es del fenotipo. M2c Un atractor corresponde totalmente al fenotipo cumpliendo con soloel eje IL10/STAT3/IL10_out pero el otro tiene igual STAT1. M2d en un atractor prenta todos los marcadores del fenotipo HIF1a, IL10 y VEGF pero igual presenta STAT1.
+
+
