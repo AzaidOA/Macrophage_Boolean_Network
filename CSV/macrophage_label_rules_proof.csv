@@ -1,6 +1,0 @@
-labels,rules
-M1__,(IL12_out) & ( IL6_out | STAT1 | STAT5 | NFKB ) & ! (IL10_out | VEGF_out)
-M2a__,(IL10_out & STAT6)  & ! ( IL12_out | IL6_out | NFKB | ERK  | VEGF_out | HIF1a)
-M2b__,(IL10_out) & (IL6_out | ERK) & ! (IL12_out | STAT6 |VEGF_out | HIF1a)
-M2c__,(IL10_out & STAT3_IL10 ) & ! ( IL12_out | IL6_out | NFKB | STAT6 | ERK | VEGF_out | HIF1a)
-M2d__,(VEGF_out & HIF1a) & ! (IL12_out | IL6_out | NFKB | STAT6 | ERK )
